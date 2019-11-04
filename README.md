@@ -13,13 +13,19 @@ Supports server for:
 
 ### Examples
 
+Generate dotnet client:
+
 ```shell script
 protoc --proto_path=example/protos \
     --plugin=src/protoc-gen-h1c-dotnetcore \
     --h1c-dotnetcore_out=example/out-csharp \
     example/protos/*.proto
+```
 
 
+Generate all csharp code, php service interface: 
+
+```shell script
 protoc --proto_path=example/protos \
     --plugin=src/protoc-gen-h1c-dotnetcore \
     --h1c-dotnetcore_out=example/out-csharp \
@@ -39,3 +45,7 @@ Support HTTP configuration via annotations:
 https://github.com/googleapis/googleapis/blob/master/google/api/http.proto
 
 https://github.com/googleapis/googleapis/blob/master/google/api/annotations.proto
+
+Implement angular client.
+
+Implement PHP client? 

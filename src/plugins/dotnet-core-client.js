@@ -1,4 +1,4 @@
-const Plugin = require('../plugin');
+const Plugin = require('../util/plugin');
 const comments = require('../util/comment-finder');
 const Template = require('../util/template');
 

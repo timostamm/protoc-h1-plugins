@@ -7,10 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "protoc-gen-h1c-csharp": "src/protoc-gen-h1c-dotnetcore"
+    "protoc-gen-h1c-dotnetcore": "src/protoc-gen-h1c-dotnetcore"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "buffer-to-uint8array": "^1.1.0",
     "google-protobuf": "^3.10.0",
