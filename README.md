@@ -11,13 +11,16 @@ Supports server for:
 
 
 
-### Examples
+### Usage
+
+
+Run `npm install protoc-h1-plugins` to install the plugins. 
+
 
 Generate dotnet client:
 
 ```shell script
 protoc --proto_path=example/protos \
-    --plugin=src/protoc-gen-h1c-dotnetcore \
     --h1c-dotnetcore_out=example/out-csharp \
     --csharp_opt=base_namespace= \
     example/protos/*.proto
@@ -28,7 +31,6 @@ Generate all csharp code, php service interface:
 
 ```shell script
 protoc --proto_path=example/protos \
-    --plugin=src/protoc-gen-h1c-dotnetcore \
     --h1c-dotnetcore_out=example/out-csharp \
     --php_out=example/out-php \
     --csharp_out=example/out-csharp \
@@ -37,6 +39,12 @@ protoc --proto_path=example/protos \
 
 ```
 
+
+If plugin not found: Try adding one of the following parameters:
+ 
+```shell script
+--plugin=node_modules/.bin/protoc-gen-h1c-dotnetcore
+```
 
 
 
