@@ -1,0 +1,16 @@
+
+syntax = "proto3";
+
+package zett;
+option php_namespace = "Zett";
+option php_metadata_namespace = "Zett\\Metadata";
+option php_generic_services = true;
+option csharp_namespace = "Zett";
+
+message ZettRequest {
+    string name = 1;
+}
+
+message ZettResponse {
+    string greeting = 2;
+}

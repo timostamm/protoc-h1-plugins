@@ -1,0 +1,19 @@
+{
+  "name": "protoc-h1-plugins",
+  "version": "1.0.0",
+  "description": "Protobuf RPC over HTTP 1",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "protoc-gen-h1c-csharp": "src/protoc-gen-h1c-dotnetcore"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "buffer-to-uint8array": "^1.1.0",
+    "google-protobuf": "^3.10.0",
+    "stream-to-promise": "^2.2.0"
+  }
+}

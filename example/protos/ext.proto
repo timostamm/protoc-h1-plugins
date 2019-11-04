@@ -1,0 +1,16 @@
+
+syntax = "proto3";
+
+package ext;
+option php_namespace = "Ext";
+option php_metadata_namespace = "Ext\\Metadata";
+option php_generic_services = true;
+option csharp_namespace = "Ext";
+
+message ExtRequest {
+    string name = 1;
+}
+
+message ExtResponse {
+    string greeting = 2;
+}

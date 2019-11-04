@@ -1,0 +1,39 @@
+
+syntax = "proto3";
+
+package example;
+option php_namespace = "Example";
+option php_metadata_namespace = "Example\\Metadata";
+option php_generic_services = true;
+option csharp_namespace = "Example";
+
+
+import "ext.proto";
+import "zett.proto";
+
+
+// This is just an example service that
+// uses imports
+service Greeter {
+
+    // Simple hello method
+    rpc Hello(HelloRequest) returns (HelloResponse) {
+    }
+
+    // Simple ext method
+    rpc Ext(ext.ExtRequest) returns (ext.ExtResponse) {
+        option deprecated = true;
+    }
+
+    rpc Zett(zett.ZettRequest) returns (zett.ZettResponse);
+}
+// trailing service comment
+
+
+message HelloRequest {
+    string name = 1;
+}
+
+message HelloResponse {
+    string greeting = 2;
+}
