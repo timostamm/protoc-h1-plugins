@@ -17,12 +17,12 @@ namespace Example
     /// This is just an example service that
     /// uses imports
     /// </summary>
-    public class GreeterClient
+    public class GreeterHttpClient
     {
         private readonly HttpClient _client;
 
 
-        public GreeterClient(HttpClient client)
+        public GreeterHttpClient(HttpClient client)
         {
             client.DefaultRequestHeaders.Add("Accept", "application/protobuf");
             _client = client;

@@ -15,7 +15,7 @@ class DotnetCoreClient extends Plugin {
             '@@PROTO_FILE@@': proto.getName(),
             '@SERVICE@': `${proto.getPackage()}.${service.getName()}`,
             '@NAMESPACE@': proto.getOptions().getCsharpNamespace(),
-            '@CLASS@': service.getName() + 'Client',
+            '@CLASS@': `${service.getName()}HttpClient`,
             '@CLASS_COMMENT@': comments.service(proto, serviceIndex, "    /// ")
         };
         const template = Template.read(`${__dirname}/dotnet-core-client.template`);
@@ -31,7 +31,8 @@ class DotnetCoreClient extends Plugin {
             });
         });
         template.replace(vars);
-        const file = proto.getOptions().getCsharpNamespace().split('.').join('/') + '/' + service.getName() + 'HttpClient.cs';
+        const packageDir = proto.getOptions().getCsharpNamespace().split('.').join('/');
+        const file = `${packageDir}/${service.getName()}HttpClient.cs`;
         this.addResponseFile(file, template.toString());
     }
 
