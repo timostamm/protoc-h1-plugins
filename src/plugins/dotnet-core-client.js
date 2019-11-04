@@ -31,7 +31,7 @@ class DotnetCoreClient extends Plugin {
             });
         });
         template.replace(vars);
-        const file = proto.getOptions().getCsharpNamespace().split('.').join('/') + '/' + service.getName() + 'Client.cs';
+        const file = proto.getOptions().getCsharpNamespace().split('.').join('/') + '/' + service.getName() + 'HttpClient.cs';
         this.addResponseFile(file, template.toString());
     }
 

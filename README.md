@@ -19,6 +19,7 @@ Generate dotnet client:
 protoc --proto_path=example/protos \
     --plugin=src/protoc-gen-h1c-dotnetcore \
     --h1c-dotnetcore_out=example/out-csharp \
+    --csharp_opt=base_namespace= \
     example/protos/*.proto
 ```
 
@@ -31,6 +32,7 @@ protoc --proto_path=example/protos \
     --h1c-dotnetcore_out=example/out-csharp \
     --php_out=example/out-php \
     --csharp_out=example/out-csharp \
+    --csharp_opt=base_namespace= \
     example/protos/*.proto
 
 ```
