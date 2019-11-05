@@ -27,7 +27,7 @@ class DotnetCoreClient extends Plugin {
                 '@@REQUEST@@': this.findMessageTypeCsharp(method.getInputType()),
                 '@RESPONSE@': this.findMessageTypeCsharp(method.getOutputType()),
                 '@METHOD_COMMENT@': comments.serviceMethod(proto, serviceIndex, method.getName(), "        /// "),
-                '@METHOD_DEPRECATED@': deprecated ? "[global::System::Obsolete] " : ''
+                '@METHOD_DEPRECATED@': deprecated ? "[global::System.Obsolete] " : ''
             });
         });
         template.replace(vars);
