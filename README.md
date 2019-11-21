@@ -43,12 +43,24 @@ protoc --proto_path=example/protos \
 
 ### TODO
 
-Support HTTP configuration via annotations:
+* C# client: Client-wide option to send binary or json.
 
-https://github.com/googleapis/googleapis/blob/master/google/api/http.proto
+* C# client: Client-wide option: factory for accept headers, taking proto and bin/json flag as argument, returning enumerable of acceptable type (and quality), validate response. 
 
-https://github.com/googleapis/googleapis/blob/master/google/api/annotations.proto
+* C# client: Default accept headers factory: 
+  
+  When sending binary: application/protobuf; proto=..., application/protobuf, application/json; proto=..., application/json
+  
+  When sending json: application/json; proto=..., application/json, application/protobuf; proto=..., application/protobuf
 
-Implement angular client.
+* C# client: Always POST.
 
-Implement PHP client? 
+* Support HTTP configuration via annotations:
+  
+  https://github.com/googleapis/googleapis/blob/master/google/api/http.proto
+  
+  https://github.com/googleapis/googleapis/blob/master/google/api/annotations.proto
+
+* Implement angular client.
+
+* Implement PHP client? 

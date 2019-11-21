@@ -6,6 +6,7 @@
 
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
 using Google.Protobuf;
 using Google.Protobuf.WellKnownTypes;
@@ -32,21 +33,21 @@ namespace @NAMESPACE@
         /// <summary>
 @METHOD_COMMENT@
         /// </summary>
-        @METHOD_DEPRECATED@public async Task<@RESPONSE@> @METHOD@(@@REQUEST@@ request)
+        @METHOD_DEPRECATED@public async Task<@RESPONSE@> @METHOD@(@@REQUEST@@ request, CancellationToken cancellationToken = default)
         {
-            return await DoRequest(request, "@SERVICE@/@METHOD@", @RESPONSE@.Parser);
+            return await DoRequest(request, "@SERVICE@/@METHOD@", @RESPONSE@.Parser, cancellationToken);
         }
 		@END_METHOD@
 
 
-        private async Task<T> DoRequest<T>(IMessage request, string uri, MessageParser<T> responseParser)
+        private async Task<T> DoRequest<T>(IMessage request, string uri, MessageParser<T> responseParser, CancellationToken cancellationToken)
             where T : IMessage<T>
         {
             var requestMessage = new HttpRequestMessage(HttpMethod.Put, uri);
             requestMessage.Content = new ByteArrayContent(request.ToByteArray());
             requestMessage.Content.Headers.ContentType =
                 MediaTypeHeaderValue.Parse($"application/protobuf; proto={request.Descriptor.FullName}");
-            var response = await _client.SendAsync(requestMessage);
+            var response = await _client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
             response.EnsureSuccessStatusCode();
             var responseStream = await response.Content.ReadAsStreamAsync();
             return responseParser.ParseFrom(responseStream);
