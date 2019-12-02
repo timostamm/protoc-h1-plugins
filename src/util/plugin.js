@@ -46,31 +46,56 @@ class Plugin {
                 continue;
             }
             this.handleProto(proto);
-            for (let i = 0; i < proto.getMessageTypeList().length; i++) {
-                const message = proto.getMessageTypeList()[i];
-                this.renderMessage(proto, message, i);
-            }
-            for (let i = 0; i < proto.getServiceList().length; i++) {
-                const service = proto.getServiceList()[i];
-                this.renderService(proto, service, i);
-            }
         }
     }
 
 
+    /**
+     * @param {proto.google.protobuf.FileDescriptorProto} proto
+     */
     handleProto(proto) {
-
+        for (let i = 0; i < proto.getEnumTypeList().length; i++) {
+            const enumDescriptorProto = proto.getEnumTypeList()[i];
+            this.handlePackageEnum(proto, enumDescriptorProto, i);
+        }
+        for (let i = 0; i < proto.getMessageTypeList().length; i++) {
+            const descriptorProto = proto.getMessageTypeList()[i];
+            this.handlePackageMessage(proto, descriptorProto, i);
+        }
+        for (let i = 0; i < proto.getServiceList().length; i++) {
+            const serviceDescriptorProto = proto.getServiceList()[i];
+            this.handleService(proto, serviceDescriptorProto, i);
+        }
     }
 
 
-    renderService(proto, service, serviceIndex) {
+    /**
+     * @param {proto.google.protobuf.FileDescriptorProto} proto
+     * @param {proto.google.protobuf.EnumDescriptorProto} enumDescriptorProto
+     * @param {number} index
+     */
+    handlePackageEnum(proto, enumDescriptorProto, index) {
 
     }
 
-
-    renderMessage(proto, message, messageIndex) {
+    /**
+     * @param {proto.google.protobuf.FileDescriptorProto} proto
+     * @param {proto.google.protobuf.DescriptorProto} descriptorProto
+     * @param {number} index
+     */
+    handlePackageMessage(proto, descriptorProto, index) {
 
     }
+
+    /**
+     * @param {proto.google.protobuf.FileDescriptorProto} proto
+     * @param {proto.google.protobuf.ServiceDescriptorProto} serviceDescriptorProto
+     * @param {number} index
+     */
+    handleService(proto, serviceDescriptorProto, index) {
+
+    }
+
 
 
     /**

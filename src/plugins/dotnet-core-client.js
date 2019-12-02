@@ -6,7 +6,7 @@ const Template = require('../util/template');
 class DotnetCoreClient extends Plugin {
 
 
-    renderService(proto, service, serviceIndex) {
+    handleService(proto, service, serviceIndex) {
         const methods = service.getMethodList().filter(method => {
             return !method.getClientStreaming()
                 && !method.getServerStreaming()
