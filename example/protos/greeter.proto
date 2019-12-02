@@ -10,6 +10,7 @@ option csharp_namespace = "Example";
 
 import "ext.proto";
 import "zett.proto";
+import "google/protobuf/wrappers.proto";
 
 
 // This is just an example service that
@@ -26,6 +27,9 @@ service Greeter {
     }
 
     rpc Zett(zett.ZettRequest) returns (zett.ZettResponse);
+
+    rpc Get (google.protobuf.Int32Value) returns (zett.ZettResponse);
+
 }
 // trailing service comment
 

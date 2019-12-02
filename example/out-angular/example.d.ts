@@ -1,6 +1,7 @@
 // Generated code - do not edit!
 import './ext';
 import './zett';
+import './wellknowntypes';
 
 
 declare namespace example {
@@ -41,6 +42,8 @@ declare namespace example {
 		ext(request: ext.ExtRequest): Promise<ext.ExtResponse>;
 	
 		zett(request: zett.ZettRequest): Promise<zett.ZettResponse>;
+	
+		get(request: google.protobuf.Int32Value): Promise<zett.ZettResponse>;
 	
 	}
 	

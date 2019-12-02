@@ -99,8 +99,12 @@ class AngularClient extends Plugin {
         this.services.push(tsService);
         const methods = service.getMethodList().filter(method => !method.getClientStreaming() && !method.getServerStreaming());
         for (const method of methods) {
-            const inputType = this.messageByName[method.getInputType()];
-            const outputType = this.messageByName[method.getOutputType()];
+            const inputType = TypescriptWellKnownType.isWellKnownType(method.getInputType())
+                ? new TypescriptWellKnownType(method.getInputType())
+                : this.messageByName[method.getInputType()];
+            const outputType = TypescriptWellKnownType.isWellKnownType(method.getOutputType())
+                ? new TypescriptWellKnownType(method.getOutputType())
+                : this.messageByName[method.getOutputType()];
             const deprecated = method.getOptions() ? method.getOptions().hasDeprecated() : false;
             const comment = comments.serviceMethod(proto, serviceIndex, method.getName(), "");
             tsService.addMethod(method.getName(), inputType, outputType, comment, deprecated);
@@ -203,7 +207,7 @@ class AngularClient extends Plugin {
                     break;
 
                 case FieldType.TYPE_MESSAGE:
-                    if (fd.getTypeName().startsWith(".google.protobuf.")) {
+                    if (TypescriptWellKnownType.isWellKnownType(fd.getTypeName())) {
                         tsMessage.addMessageField(name, repeated, new TypescriptWellKnownType(fd.getTypeName()));
 
                     } else if (TypescriptMap.isMapField(tsMessage.getQualifiedName(), name, fd.getTypeName())) {
