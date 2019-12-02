@@ -1,6 +1,6 @@
-const Plugin = require('../util/plugin');
-const comments = require('../util/comment-finder');
-const Template = require('../util/template');
+const Plugin = require('../../util/plugin');
+const comments = require('../../util/comment-finder');
+const Template = require('../../util/template');
 
 
 class DotnetCoreClient extends Plugin {
