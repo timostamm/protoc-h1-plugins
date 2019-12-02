@@ -1,22 +1,60 @@
 module.exports = class TypescriptFile {
 
+
+    /**
+     * @param  {!Array<!proto.google.protobuf.FileDescriptorProto>} protos
+     */
+    static prepareMap(protos) {
+        const files = {};
+        for (const proto of protos) {
+            if (files.hasOwnProperty(proto.getPackage())) {
+                continue;
+            }
+            files[proto.getPackage()] = new TypescriptFile(`${proto.getPackage()}.ts`);
+        }
+        return files;
+    }
+
+
     constructor(name) {
         this.name = name;
-        this.importPaths = {};
+        this.imports = [];
         this.lines = [];
         this.currentNamespace = false;
         this.empty = true;
     }
 
+
     /**
-     * @param {string} path
+     * @param {string} modulePath
+     * @param {string|undefined} [symbol]
+     * @return string
      */
-    addImport(path) {
-        if (!path.startsWith('/') && !path.startsWith('./') && !path.startsWith('../')) {
-            path = './' + path;
+    addImport(modulePath, symbol) {
+        if (!modulePath.startsWith('/') && !modulePath.startsWith('./') && !modulePath.startsWith('../')) {
+            modulePath = './' + modulePath;
         }
-        this.importPaths[path] = path;
+        const exists = this.imports.find(i => i.modulePath === modulePath && i.symbol === symbol);
+        if (exists) {
+            return typeof exists.alias === "string" ? exists.alias : exists.symbol;
+        }
+        let s = symbol;
+        let i = 1;
+        while (this.isImportSymbolTaken(s)) {
+            s = `${symbol}${i++}`;
+        }
+        this.imports.push({
+            modulePath: modulePath,
+            symbol: symbol,
+            alias: s === symbol ? undefined : s
+        });
+        return s;
     }
+
+    isImportSymbolTaken(symbol) {
+        this.imports.some(i => i.symbol === symbol);
+    }
+
 
     /**
      * @param {string} content
@@ -56,9 +94,20 @@ module.exports = class TypescriptFile {
     }
 
     getContents() {
+
+        const imports = this.imports.map(i => {
+            if (typeof i.symbol === "string" && typeof i.alias === "string") {
+                return `import {${i.symbol}} as ${i.alias} from '${i.modulePath}'`;
+            }
+            if (typeof i.symbol === "string") {
+                return `import {${i.symbol}} from '${i.modulePath}'`;
+            }
+            return `import '${i.modulePath}'`;
+        });
+
         return [
             '// Generated code - do not edit!',
-            ...Object.keys(this.importPaths).map(path => `import '${path}';`),
+            ...imports,
             '',
             ...this.lines
         ].join("\n");

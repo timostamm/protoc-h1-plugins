@@ -50,42 +50,49 @@ class AngularClient extends Plugin {
             return [k, v];
         };
 
+        // one file for each package
+        const packageFiles = TypescriptFile.prepareMap(this.request.getProtoFileList());
+
+        // walk all proto files
         for (const proto of this.request.getProtoFileList()) {
-            const file = new TypescriptFile(`${proto.getPackage()}.d.ts`);
+            const file = packageFiles[proto.getPackage()];
+
+            // resolver adds import statements to our .ts file
             const resolve = (typeName) => {
                 if (typeName.startsWith('.google.protobuf.')) {
                     file.addImport('./wellknowntypes');
-                } else if (!typeName.startsWith(`.${proto.getPackage()}`)) {
+                    return typeName.substr(1);
+
+                } else if (typeName.startsWith(`.${proto.getPackage()}`)) {
+
+                    return typeName.split('.').pop();
+
+                } else {
+
                     const tsMessage = this.messageByName[typeName];
                     if (tsMessage instanceof TypescriptMessage) {
-                        file.addImport(tsMessage.packageName);
+                        return file.addImport(tsMessage.packageName, tsMessage.messageName);
                     } else {
                         throw new Error(`Unable to add import for type ${typeName}.`);
                     }
                 }
-                return typeName.substr(1);
             };
-            file.startNamespace(proto.getPackage());
-            for (const tsMessage of this.messages) {
+
+            // add messages and services to file
+            for (const tsMessage of this.messages.filter(m => m.packageName === proto.getPackage())) {
                 if (this.mapEntryMessageNames.hasOwnProperty(tsMessage.getQualifiedName())) {
                     continue;
                 }
-                if (tsMessage.packageName !== proto.getPackage()) {
-                    continue;
-                }
-                file.add(
-                    tsMessage.render(resolve, lookupMapTyping, true)
-                );
+                file.add(tsMessage.render(resolve, lookupMapTyping, true));
             }
-            for (const tsService of this.services) {
-                if (tsService.packageName !== proto.getPackage()) {
-                    continue;
-                }
-                file.add(
-                    tsService.render(resolve, true)
-                );
+            for (const tsService of this.services.filter(s => s.packageName === proto.getPackage())) {
+                file.add(tsService.render(resolve, true));
             }
-            file.stopNamespace();
+        }
+
+        // write files
+        for (const k in packageFiles) {
+            const file = packageFiles[k];
             if (!file.empty) {
                 this.addResponseFile(file.name, file.getContents());
             }
