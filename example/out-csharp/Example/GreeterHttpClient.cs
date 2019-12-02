@@ -6,6 +6,7 @@
 
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
 using Google.Protobuf;
 using Google.Protobuf.WellKnownTypes;
@@ -33,9 +34,9 @@ namespace Example
         /// <summary>
         /// Simple hello method
         /// </summary>
-        public async Task<global::Example.HelloResponse> Hello(global::Example.HelloRequest request)
+        public async Task<global::Example.HelloResponse> Hello(global::Example.HelloRequest request, CancellationToken cancellationToken = default)
         {
-            return await DoRequest(request, "example.Greeter/Hello", global::Example.HelloResponse.Parser);
+            return await DoRequest(request, "example.Greeter/Hello", global::Example.HelloResponse.Parser, cancellationToken);
         }
 		
 
@@ -43,9 +44,9 @@ namespace Example
         /// <summary>
         /// Simple ext method
         /// </summary>
-        [Obsolete] public async Task<global::Ext.ExtResponse> Ext(global::Ext.ExtRequest request)
+        [global::System.Obsolete] public async Task<global::Ext.ExtResponse> Ext(global::Ext.ExtRequest request, CancellationToken cancellationToken = default)
         {
-            return await DoRequest(request, "example.Greeter/Ext", global::Ext.ExtResponse.Parser);
+            return await DoRequest(request, "example.Greeter/Ext", global::Ext.ExtResponse.Parser, cancellationToken);
         }
 		
 
@@ -53,21 +54,21 @@ namespace Example
         /// <summary>
 
         /// </summary>
-        public async Task<global::Zett.ZettResponse> Zett(global::Zett.ZettRequest request)
+        public async Task<global::Zett.ZettResponse> Zett(global::Zett.ZettRequest request, CancellationToken cancellationToken = default)
         {
-            return await DoRequest(request, "example.Greeter/Zett", global::Zett.ZettResponse.Parser);
+            return await DoRequest(request, "example.Greeter/Zett", global::Zett.ZettResponse.Parser, cancellationToken);
         }
 		
 
 
-        private async Task<T> DoRequest<T>(IMessage request, string uri, MessageParser<T> responseParser)
+        private async Task<T> DoRequest<T>(IMessage request, string uri, MessageParser<T> responseParser, CancellationToken cancellationToken)
             where T : IMessage<T>
         {
             var requestMessage = new HttpRequestMessage(HttpMethod.Put, uri);
             requestMessage.Content = new ByteArrayContent(request.ToByteArray());
             requestMessage.Content.Headers.ContentType =
                 MediaTypeHeaderValue.Parse($"application/protobuf; proto={request.Descriptor.FullName}");
-            var response = await _client.SendAsync(requestMessage);
+            var response = await _client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
             response.EnsureSuccessStatusCode();
             var responseStream = await response.Content.ReadAsStreamAsync();
             return responseParser.ParseFrom(responseStream);
