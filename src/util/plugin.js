@@ -20,6 +20,7 @@ class Plugin {
             process.stdout.write(Buffer.from(this.response.serializeBinary()))
         } catch (e) {
             if (e instanceof Error) {
+                console.error(e.message);
                 console.error(e.stack);
             } else {
                 console.error(e);
