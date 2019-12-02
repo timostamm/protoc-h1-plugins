@@ -1,0 +1,6 @@
+#! /usr/bin/env node
+
+const AngularClient = require('./plugins/angular/AngularClient');
+
+new AngularClient().run(process);
+

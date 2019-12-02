@@ -11,37 +11,58 @@ Supports server for:
 
 
 
-### Usage
+## Usage
 
+#### PHP server
+
+Generate PHP classes for PHP server, includes interface for service 
+and PHP classes for the protobuf types:
+
+```shell script
+protoc --proto_path=example/protos \
+    --php_out=example/out-php \
+    example/protos/*.proto
+```
+
+Use `timostamm/protoc-h1-php-server` to serve.
+ 
+
+#### dotnet client for the PHP server
 
 Run `npm install protoc-h1-plugins` to install the plugins. 
-
-
-Generate dotnet client:
+Generate C# code for the protobuf types and the dotnet client:
 
 ```shell script
 protoc --proto_path=example/protos \
     --plugin=node_modules/.bin/protoc-gen-h1c-dotnetcore \
     --h1c-dotnetcore_out=example/out-csharp \
     --csharp_opt=base_namespace= \
-    example/protos/*.proto
-```
-
-
-Generate all csharp code, php service interface: 
-
-```shell script
-protoc --proto_path=example/protos \
-    --plugin=node_modules/.bin/protoc-gen-h1c-dotnetcore \
-    --h1c-dotnetcore_out=example/out-csharp \
-    --php_out=example/out-php \
     --csharp_out=example/out-csharp \
     --csharp_opt=base_namespace= \
     example/protos/*.proto
 ```
 
 
+#### angular client for the PHP server
+
+
+```shell script
+protoc --proto_path=example/protos \
+    --plugin=node_modules/.bin/protoc-gen-h1c-angular \
+    --h1c-angular_out=example/out-angular \
+    example/protos/*.proto
+```
+
+
+
 ### TODO
+
+
+* Implement angular client.
+    - check match with canonical json rep 
+    - make all message properties optional
+    - generate service client
+
 
 * C# client: Client-wide option to send binary or json.
 
@@ -60,7 +81,5 @@ protoc --proto_path=example/protos \
   https://github.com/googleapis/googleapis/blob/master/google/api/http.proto
   
   https://github.com/googleapis/googleapis/blob/master/google/api/annotations.proto
-
-* Implement angular client.
 
 * Implement PHP client? 

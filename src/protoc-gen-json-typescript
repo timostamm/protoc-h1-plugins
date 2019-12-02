@@ -1,0 +1,6 @@
+#! /usr/bin/env node
+
+const JsonTypescript = require('./plugins/json-typescript/JsonTypescript');
+
+new JsonTypescript().run(process);
+
