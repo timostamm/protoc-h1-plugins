@@ -59,8 +59,6 @@ module.exports = class TypescriptService {
             const outputType = `Promise<${innerOutputType}>`;
 
 
-            // TODO comment
-            // TODO deprecated
             // TODO promise or Observable return type
 
             if (method.comment.length > 0 || method.deprecated) {

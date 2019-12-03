@@ -1,0 +1,14 @@
+
+syntax = "proto3";
+
+package nested_user;
+
+import "nested.proto";
+
+
+message NestedUser {
+
+    nested.NestedOuter no = 1;
+
+    nested.NestedOuter.NestedInner ni = 2;
+}

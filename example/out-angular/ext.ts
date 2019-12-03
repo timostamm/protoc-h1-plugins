@@ -4,7 +4,7 @@
 export interface ExtRequest {
 
 	name: string;
-
+	
 }
 
 
@@ -12,6 +12,6 @@ export interface ExtRequest {
 export interface ExtResponse {
 
 	greeting: string;
-
+	
 }
 

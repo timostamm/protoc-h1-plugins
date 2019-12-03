@@ -119,34 +119,59 @@ module.exports = class TypescriptMessage {
     /**
      * @param {function(typeName:string ):string} resolve
      * @param {function(entryTypeName:string ):array} lookupMapTyping
-     * @param {boolean} exportStatement
      * @return {string}
      */
-    render(resolve, lookupMapTyping, exportStatement = true) {
+    render(resolve, lookupMapTyping) {
         const a = [];
 
         if (this.comment.length > 0) {
             a.push(`/**`);
-            a.push(... this.comment.split("\n").map(l => ` * ${l}`));
+            a.push(...this.comment.split("\n").map(l => ` * ${l}`));
             a.push(` */`);
         }
-        if (exportStatement) {
-            a.push(`export interface ${this.messageName} {`);
+
+        const isNested = this.parentMessageNames.length > 0;
+
+        if (isNested) {
+            a.push(
+                `export namespace ${this.parentMessageNames.join('.')} {`,
+                `\texport interface ${this.messageName} {`,
+                '\t',
+                ...this.renderFields(resolve, lookupMapTyping, 2),
+                `\t}`,
+                `}`
+            );
         } else {
-            a.push(`interface ${this.messageName} {`);
+            a.push(
+                `export interface ${this.messageName} {`,
+                '',
+                ...this.renderFields(resolve, lookupMapTyping, 1),
+                `}`
+            );
         }
-        a.push(``);
+
+        return a.join("\n") + "\n";
+    }
+
+    /**
+     * @param {function(typeName:string ):string} resolve
+     * @param {function(entryTypeName:string ):array} lookupMapTyping
+     * @param {number} indent
+     * @return {Array<string>}
+     */
+    renderFields(resolve, lookupMapTyping, indent) {
+        const a = [];
         for (const field of this.fields) {
 
             if (field.comment.length > 0) {
                 const commentLines = field.comment.split("\n");
                 if (commentLines.length === 1) {
-                    a.push(`\t/** ${commentLines[0].trim()} */`);
+                    a.push(`/** ${commentLines[0].trim()} */`);
                 } else {
                     a.push(
-                        `\t/**`,
-                        ... commentLines.map(l => `\t * ${l}`),
-                        `\t */`
+                        `/**`,
+                        ...commentLines.map(l => ` * ${l}`),
+                        ` */`
                     );
                 }
             }
@@ -154,10 +179,10 @@ module.exports = class TypescriptMessage {
             if (field.type instanceof TypescriptMap) {
                 const typing = lookupMapTyping(field.type.entryTypeName);
                 const valueType = resolve(typing[1]);
-                a.push(`\t${field.name}: { [index: ${typing[0]}]: ${valueType} };`);
+                a.push(`${field.name}: { [index: ${typing[0]}]: ${valueType} };`);
 
             } else if (field.type instanceof TypescriptEnum) {
-                a.push(`\t${field.name}: ${field.type.getLiteralUnion()};`);
+                a.push(`${field.name}: ${field.type.getLiteralUnion()};`);
 
             } else {
 
@@ -166,36 +191,15 @@ module.exports = class TypescriptMessage {
                     : resolve(field.type.getQualifiedName());
 
                 if (field.repeated) {
-                    a.push(`\t${field.name}: Array<${t}>;`);
+                    a.push(`${field.name}: Array<${t}>;`);
                 } else {
-                    a.push(`\t${field.name}: ${t};`);
+                    a.push(`${field.name}: ${t};`);
                 }
 
             }
-
             a.push(``);
         }
-        a.push(`}`);
-        return a.join("\n") + "\n";
-    }
-
-
-    toString(fields = false) {
-        if (!fields) {
-            return `TypescriptMessage(${this.getQualifiedName()})`;
-        }
-        const a = [];
-        a.push(`TypescriptMessage ${this.messageName} {`);
-        for (const field of this.fields) {
-            const t = typeof field.type === "string" ? field.type : field.type;
-            if (field.repeated) {
-                a.push(`\t${field.name}: Array<${t}>;`);
-            } else {
-                a.push(`\t${field.name}: ${t};`);
-            }
-        }
-        a.push(`}`);
-        return a.join("\n") + "\n";
+        return a.map(l => "\t".repeat(indent) + l);
     }
 
 
@@ -206,6 +210,11 @@ module.exports = class TypescriptMessage {
         }
         n += `.${this.messageName}`;
         return n;
+    }
+
+
+    toString() {
+        return `TypescriptMessage(${this.getQualifiedName()})`;
     }
 
 };

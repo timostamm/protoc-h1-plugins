@@ -1,7 +1,7 @@
 /**
  * @param {proto.google.protobuf.FileDescriptorProto} proto
  * @param messageIndex
- * @param {string|undefined} prefix
+ * @param {string|undefined} [prefix]
  * @return {string}
  */
 function message(proto, messageIndex, prefix) {
@@ -23,7 +23,7 @@ function message(proto, messageIndex, prefix) {
  * @param {proto.google.protobuf.FileDescriptorProto} proto
  * @param {proto.google.protobuf.DescriptorProto} message
  * @param {string} fieldName
- * @param {string|undefined} prefix
+ * @param {string|undefined} [prefix]
  * @return {string}
  */
 function messageField(proto, message, fieldName, prefix) {

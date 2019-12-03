@@ -1,0 +1,15 @@
+
+syntax = "proto3";
+
+package nested;
+
+message NestedOuter {
+
+    string outer_name = 1;
+
+    NestedInner inner = 2;
+
+    message NestedInner {
+        string inner_name = 1;
+    }
+}
