@@ -77,14 +77,14 @@ class AngularClient extends Plugin {
                     if (tsMessage instanceof TypescriptMessage) {
 
                         if (tsMessage.parentMessageNames.length === 0) {
-                            return file.addImport(tsMessage.packageName, tsMessage.messageName);
+                            return file.addImport('./' + tsMessage.packageName, tsMessage.messageName);
                         }
 
                         // we have a nested message
                         const names = tsMessage.parentMessageNames.concat(tsMessage.messageName);
 
                         // add an import for the outer message:
-                        const symbol = file.addImport(tsMessage.packageName, names.shift());
+                        const symbol = file.addImport('./' + tsMessage.packageName, names.shift());
 
                         // then use the imported symbol + remaining qualified name to reference the nested message:
                         return `${symbol}.${names.join('.')}`;
@@ -100,10 +100,11 @@ class AngularClient extends Plugin {
                 if (this.mapEntryMessageNames.hasOwnProperty(tsMessage.getQualifiedName())) {
                     continue;
                 }
-                file.add(tsMessage.render(resolve, lookupMapTyping, true));
+                file.add(tsMessage.render(resolve, lookupMapTyping));
             }
             for (const tsService of this.services.filter(s => s.packageName === proto.getPackage() && s.protoName === proto.getName())) {
-                file.add(tsService.render(resolve, true));
+                file.addImport('rxjs', 'Observable');
+                file.add(tsService.renderInterface(resolve, 'observable'));
             }
         }
 

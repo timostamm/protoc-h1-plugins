@@ -35,31 +35,26 @@ module.exports = class TypescriptService {
 
     /**
      * @param {function(typeName:string ):string} resolve
-     * @param {boolean} exportStatement
+     * @param {'promise'|'observable'} asyncType
      * @return {string}
      */
-    render(resolve, exportStatement = true) {
+    renderInterface(resolve, asyncType) {
         const a = [];
         if (this.comment.length > 0) {
             a.push(`/**`);
             a.push(... this.comment.split("\n").map(l => ` * ${l}`));
             a.push(` */`);
         }
-        if (exportStatement) {
-            a.push(`export interface ${this.serviceName}Interface {`);
-        } else {
-            a.push(`interface ${this.serviceName}Interface {`);
-        }
+        a.push(`export interface ${this.serviceName}Interface {`);
         a.push('');
         for (const method of this.methods) {
 
             const name = method.name.charAt(0).toLowerCase() + method.name.substr(1);
             const inputType = resolve(method.inputType.getQualifiedName());
             const innerOutputType = resolve(method.outputType.getQualifiedName());
-            const outputType = `Promise<${innerOutputType}>`;
-
-
-            // TODO promise or Observable return type
+            const outputType = asyncType === 'promise'
+                ? `Promise<${innerOutputType}>`
+                : `Observable<${innerOutputType}>`;
 
             if (method.comment.length > 0 || method.deprecated) {
                 a.push(`\t/**`);

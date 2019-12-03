@@ -31,9 +31,6 @@ module.exports = class TypescriptFile {
      * @return string
      */
     addImport(modulePath, symbol) {
-        if (!modulePath.startsWith('/') && !modulePath.startsWith('./') && !modulePath.startsWith('../')) {
-            modulePath = './' + modulePath;
-        }
         const exists = this.imports.find(i => i.modulePath === modulePath && i.symbol === symbol);
         if (exists) {
             return typeof exists.alias === "string" ? exists.alias : exists.symbol;

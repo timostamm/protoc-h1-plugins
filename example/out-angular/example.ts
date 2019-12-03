@@ -1,4 +1,5 @@
 // Generated code - do not edit!
+import {Observable} from 'rxjs'
 import {ExtRequest} from './ext'
 import {ExtResponse} from './ext'
 import {ZettRequest} from './zett'
@@ -31,18 +32,18 @@ export interface GreeterInterface {
 	/**
 	 * Simple hello method
 	 */
-	hello(request: HelloRequest): Promise<HelloResponse>;
+	hello(request: HelloRequest): Observable<HelloResponse>;
 
 	/**
 	 * Simple ext method
 	 * 
 	 * @deprecated
 	 */
-	ext(request: ExtRequest): Promise<ExtResponse>;
+	ext(request: ExtRequest): Observable<ExtResponse>;
 
-	zett(request: ZettRequest): Promise<ZettResponse>;
+	zett(request: ZettRequest): Observable<ZettResponse>;
 
-	get(request: google.protobuf.Int32Value): Promise<ZettResponse>;
+	get(request: google.protobuf.Int32Value): Observable<ZettResponse>;
 
 }
 
