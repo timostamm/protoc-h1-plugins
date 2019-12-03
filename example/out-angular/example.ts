@@ -4,7 +4,7 @@ import {ExtRequest} from './ext'
 import {ExtResponse} from './ext'
 import {ZettRequest} from './zett'
 import {ZettResponse} from './zett'
-import './wellknowntypes'
+import {google} from './wellknowntypes'
 
 
 export interface HelloRequest {

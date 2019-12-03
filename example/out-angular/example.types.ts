@@ -1,5 +1,5 @@
 // Generated code - do not edit!
-import './wellknowntypes'
+import {google} from './wellknowntypes'
 
 
 export interface BuiltInTypesMessage {
