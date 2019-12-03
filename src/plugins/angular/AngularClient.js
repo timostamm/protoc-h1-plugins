@@ -79,13 +79,13 @@ class AngularClient extends Plugin {
             };
 
             // add messages and services to file
-            for (const tsMessage of this.messages.filter(m => m.packageName === proto.getPackage())) {
+            for (const tsMessage of this.messages.filter(m => m.packageName === proto.getPackage() && m.protoName === proto.getName())) {
                 if (this.mapEntryMessageNames.hasOwnProperty(tsMessage.getQualifiedName())) {
                     continue;
                 }
                 file.add(tsMessage.render(resolve, lookupMapTyping, true));
             }
-            for (const tsService of this.services.filter(s => s.packageName === proto.getPackage())) {
+            for (const tsService of this.services.filter(s => s.packageName === proto.getPackage() && s.protoName === proto.getName())) {
                 file.add(tsService.render(resolve, true));
             }
         }
