@@ -9,7 +9,7 @@ import {google} from './wellknowntypes'
 
 export interface HelloRequest {
 
-	name: string;
+	name?: string;
 	
 }
 
@@ -17,7 +17,7 @@ export interface HelloRequest {
 
 export interface HelloResponse {
 
-	greeting: string;
+	greeting?: string;
 	
 }
 

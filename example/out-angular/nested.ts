@@ -3,9 +3,9 @@
 
 export interface NestedOuter {
 
-	outerName: string;
+	outerName?: string;
 	
-	inner: NestedOuter.NestedInner;
+	inner?: NestedOuter.NestedInner;
 	
 }
 
@@ -14,7 +14,7 @@ export interface NestedOuter {
 export namespace NestedOuter {
 	export interface NestedInner {
 	
-		innerName: string;
+		innerName?: string;
 		
 	}
 }

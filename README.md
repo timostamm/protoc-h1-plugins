@@ -5,6 +5,7 @@ Supports all unary RPC calls over HTTP 1.
 
 Generates clients for:
 - .NET Core 3
+- Angular (tested with Angular 6)
 
 Supports server for:
 - PHP via https://github.com/timostamm/protoc-h1-php-server
@@ -60,7 +61,6 @@ protoc --proto_path=example/protos \
 
 * Implement angular client.
     - check match with canonical json rep 
-    - make all message properties optional
     - generate service client
 
 

@@ -4,9 +4,9 @@ import {NestedOuter} from './nested'
 
 export interface NestedUser {
 
-	no: NestedOuter;
+	no?: NestedOuter;
 	
-	ni: NestedOuter.NestedInner;
+	ni?: NestedOuter.NestedInner;
 	
 }
 

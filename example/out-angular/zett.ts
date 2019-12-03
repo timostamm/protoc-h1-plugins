@@ -3,7 +3,7 @@
 
 export interface ZettRequest {
 
-	name: string;
+	name?: string;
 	
 }
 
@@ -11,7 +11,7 @@ export interface ZettRequest {
 
 export interface ZettResponse {
 
-	greeting: string;
+	greeting?: string;
 	
 }
 

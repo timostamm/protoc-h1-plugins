@@ -3,7 +3,7 @@
 
 export interface ExtRequest {
 
-	name: string;
+	name?: string;
 	
 }
 
@@ -11,7 +11,7 @@ export interface ExtRequest {
 
 export interface ExtResponse {
 
-	greeting: string;
+	greeting?: string;
 	
 }
 

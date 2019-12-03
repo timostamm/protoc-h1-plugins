@@ -179,10 +179,10 @@ module.exports = class TypescriptMessage {
             if (field.type instanceof TypescriptMap) {
                 const typing = lookupMapTyping(field.type.entryTypeName);
                 const valueType = resolve(typing[1]);
-                a.push(`${field.name}: { [index: ${typing[0]}]: ${valueType} };`);
+                a.push(`${field.name}?: { [index: ${typing[0]}]: ${valueType} };`);
 
             } else if (field.type instanceof TypescriptEnum) {
-                a.push(`${field.name}: ${field.type.getLiteralUnion()};`);
+                a.push(`${field.name}?: ${field.type.getLiteralUnion()};`);
 
             } else {
 
@@ -191,9 +191,9 @@ module.exports = class TypescriptMessage {
                     : resolve(field.type.getQualifiedName());
 
                 if (field.repeated) {
-                    a.push(`${field.name}: Array<${t}>;`);
+                    a.push(`${field.name}?: Array<${t}>;`);
                 } else {
-                    a.push(`${field.name}: ${t};`);
+                    a.push(`${field.name}?: ${t};`);
                 }
 
             }
