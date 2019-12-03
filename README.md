@@ -46,6 +46,8 @@ protoc --proto_path=example/protos \
 
 #### angular client for the PHP server
 
+Generates typescript interfaces for all protobuf messages, 
+generates client using angular´s http client.
 
 ```shell script
 protoc --proto_path=example/protos \

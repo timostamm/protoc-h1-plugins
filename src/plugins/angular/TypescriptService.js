@@ -38,6 +38,70 @@ module.exports = class TypescriptService {
      * @param {'promise'|'observable'} asyncType
      * @return {string}
      */
+    renderClient(resolve, asyncType) {
+        const a = [];
+        if (this.comment.length > 0) {
+            a.push(
+                `/**`,
+                ... this.comment.split("\n").map(l => ` * ${l}`),
+                ` */`
+            );
+        }
+        a.push(
+            `export class ${this.serviceName}HttpClient {`,
+            ``,
+            `\tconstructor(private readonly endpoint: string, private readonly client: HttpClient) {`,
+            `\t}`,
+            ``,
+            ``
+        );
+
+        for (const method of this.methods) {
+
+            const name = method.name.charAt(0).toLowerCase() + method.name.substr(1);
+            const inputType = resolve(method.inputType.getQualifiedName());
+            const innerOutputType = resolve(method.outputType.getQualifiedName());
+            const outputType = asyncType === 'promise'
+                ? `Promise<${innerOutputType}>`
+                : `Observable<${innerOutputType}>`;
+
+            if (method.comment.length > 0 || method.deprecated) {
+                a.push(`\t/**`);
+                if (method.comment.length > 0) {
+                    a.push(... method.comment.split("\n").map(l => `\t * ${l}`));
+                }
+                if (method.deprecated) {
+                    if (method.comment.length > 0) {
+                        a.push(`\t * `);
+                    }
+                    a.push(`\t * @deprecated`);
+                }
+                a.push(`\t */`);
+            }
+
+            a.push(
+                `\t${name}(request: ${inputType}): ${outputType} {`,
+                `\t\tconst url = this.endpoint + '${this.getQualifiedName().substr(1)}/${method.name}';`,
+                `\t\treturn this.client.post<${innerOutputType}>(url, request);`,
+                `\t}`
+            );
+
+            a.push('');
+        }
+
+        a.push(
+            // ``,
+            `}`
+        );
+        return a.join("\n") + "\n";
+    }
+
+
+    /**
+     * @param {function(typeName:string ):string} resolve
+     * @param {'promise'|'observable'} asyncType
+     * @return {string}
+     */
     renderInterface(resolve, asyncType) {
         const a = [];
         if (this.comment.length > 0) {

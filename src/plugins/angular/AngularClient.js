@@ -104,7 +104,9 @@ class AngularClient extends Plugin {
             }
             for (const tsService of this.services.filter(s => s.packageName === proto.getPackage() && s.protoName === proto.getName())) {
                 file.addImport('rxjs', 'Observable');
-                file.add(tsService.renderInterface(resolve, 'observable'));
+                // file.add(tsService.renderInterface(resolve, 'observable'));
+                file.addImport('@angular/common/http', 'HttpClient');
+                file.add(tsService.renderClient(resolve, 'observable'));
             }
         }
 
