@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using Google.Protobuf;
 using Google.Protobuf.WellKnownTypes;
 
-namespace Example
+namespace Greeter
 {
 
     /// <summary>
@@ -34,9 +34,9 @@ namespace Example
         /// <summary>
         /// Simple hello method
         /// </summary>
-        public async Task<global::Example.HelloResponse> Hello(global::Example.HelloRequest request, CancellationToken cancellationToken = default)
+        public async Task<global::Greeter.HelloResponse> Hello(global::Greeter.HelloRequest request, CancellationToken cancellationToken = default)
         {
-            return await DoRequest(request, "example.Greeter/Hello", global::Example.HelloResponse.Parser, cancellationToken);
+            return await DoRequest(request, "greeter.Greeter/Hello", global::Greeter.HelloResponse.Parser, cancellationToken);
         }
 		
 
@@ -46,7 +46,7 @@ namespace Example
         /// </summary>
         [global::System.Obsolete] public async Task<global::Ext.ExtResponse> Ext(global::Ext.ExtRequest request, CancellationToken cancellationToken = default)
         {
-            return await DoRequest(request, "example.Greeter/Ext", global::Ext.ExtResponse.Parser, cancellationToken);
+            return await DoRequest(request, "greeter.Greeter/Ext", global::Ext.ExtResponse.Parser, cancellationToken);
         }
 		
 
@@ -56,7 +56,17 @@ namespace Example
         /// </summary>
         public async Task<global::Zett.ZettResponse> Zett(global::Zett.ZettRequest request, CancellationToken cancellationToken = default)
         {
-            return await DoRequest(request, "example.Greeter/Zett", global::Zett.ZettResponse.Parser, cancellationToken);
+            return await DoRequest(request, "greeter.Greeter/Zett", global::Zett.ZettResponse.Parser, cancellationToken);
+        }
+		
+
+
+        /// <summary>
+
+        /// </summary>
+        public async Task<global::Zett.ZettResponse> Get(global::Google.Protobuf.WellKnownTypes.Int32Value request, CancellationToken cancellationToken = default)
+        {
+            return await DoRequest(request, "greeter.Greeter/Get", global::Zett.ZettResponse.Parser, cancellationToken);
         }
 		
 

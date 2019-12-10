@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Example {
+namespace Greeter {
 
   /// <summary>Holder for reflection information generated from greeter.proto</summary>
   public static partial class GreeterReflection {
@@ -24,19 +24,21 @@ namespace Example {
     static GreeterReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cg1ncmVldGVyLnByb3RvEgdleGFtcGxlGglleHQucHJvdG8aCnpldHQucHJv",
-            "dG8iHAoMSGVsbG9SZXF1ZXN0EgwKBG5hbWUYASABKAkiIQoNSGVsbG9SZXNw",
-            "b25zZRIQCghncmVldGluZxgCIAEoCTKhAQoHR3JlZXRlchI4CgVIZWxsbxIV",
-            "LmV4YW1wbGUuSGVsbG9SZXF1ZXN0GhYuZXhhbXBsZS5IZWxsb1Jlc3BvbnNl",
-            "IgASLQoDRXh0Eg8uZXh0LkV4dFJlcXVlc3QaEC5leHQuRXh0UmVzcG9uc2Ui",
-            "A4gCARItCgRaZXR0EhEuemV0dC5aZXR0UmVxdWVzdBoSLnpldHQuWmV0dFJl",
-            "c3BvbnNlQiqqAgdFeGFtcGxlygIHRXhhbXBsZdACAeICEEV4YW1wbGVcTWV0",
-            "YWRhdGFiBnByb3RvMw=="));
+            "Cg1ncmVldGVyLnByb3RvEgdncmVldGVyGglleHQucHJvdG8aCnpldHQucHJv",
+            "dG8aHmdvb2dsZS9wcm90b2J1Zi93cmFwcGVycy5wcm90byIcCgxIZWxsb1Jl",
+            "cXVlc3QSDAoEbmFtZRgBIAEoCSIhCg1IZWxsb1Jlc3BvbnNlEhAKCGdyZWV0",
+            "aW5nGAIgASgJMtkBCgdHcmVldGVyEjgKBUhlbGxvEhUuZ3JlZXRlci5IZWxs",
+            "b1JlcXVlc3QaFi5ncmVldGVyLkhlbGxvUmVzcG9uc2UiABItCgNFeHQSDy5l",
+            "eHQuRXh0UmVxdWVzdBoQLmV4dC5FeHRSZXNwb25zZSIDiAIBEi0KBFpldHQS",
+            "ES56ZXR0LlpldHRSZXF1ZXN0GhIuemV0dC5aZXR0UmVzcG9uc2USNgoDR2V0",
+            "EhsuZ29vZ2xlLnByb3RvYnVmLkludDMyVmFsdWUaEi56ZXR0LlpldHRSZXNw",
+            "b25zZUIqqgIHR3JlZXRlcsoCB0dyZWV0ZXLQAgHiAhBHcmVldGVyXE1ldGFk",
+            "YXRhYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Ext.ExtReflection.Descriptor, global::Zett.ZettReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Ext.ExtReflection.Descriptor, global::Zett.ZettReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.WrappersReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Example.HelloRequest), global::Example.HelloRequest.Parser, new[]{ "Name" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Example.HelloResponse), global::Example.HelloResponse.Parser, new[]{ "Greeting" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Greeter.HelloRequest), global::Greeter.HelloRequest.Parser, new[]{ "Name" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Greeter.HelloResponse), global::Greeter.HelloResponse.Parser, new[]{ "Greeting" }, null, null, null, null)
           }));
     }
     #endregion
@@ -51,7 +53,7 @@ namespace Example {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Example.GreeterReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Greeter.GreeterReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -180,7 +182,7 @@ namespace Example {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Example.GreeterReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Greeter.GreeterReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

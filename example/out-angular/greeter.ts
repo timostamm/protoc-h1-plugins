@@ -38,7 +38,7 @@ export class GreeterHttpClient {
 	 * Simple hello method
 	 */
 	hello(request: HelloRequest): Observable<HelloResponse> {
-		const url = this.endpoint + 'example.Greeter/Hello';
+		const url = this.endpoint + 'greeter.Greeter/Hello';
 		return this.client.post<HelloResponse>(url, request);
 	}
 
@@ -48,17 +48,17 @@ export class GreeterHttpClient {
 	 * @deprecated
 	 */
 	ext(request: ExtRequest): Observable<ExtResponse> {
-		const url = this.endpoint + 'example.Greeter/Ext';
+		const url = this.endpoint + 'greeter.Greeter/Ext';
 		return this.client.post<ExtResponse>(url, request);
 	}
 
 	zett(request: ZettRequest): Observable<ZettResponse> {
-		const url = this.endpoint + 'example.Greeter/Zett';
+		const url = this.endpoint + 'greeter.Greeter/Zett';
 		return this.client.post<ZettResponse>(url, request);
 	}
 
 	get(request: google.protobuf.Int32Value): Observable<ZettResponse> {
-		const url = this.endpoint + 'example.Greeter/Get';
+		const url = this.endpoint + 'greeter.Greeter/Get';
 		return this.client.post<ZettResponse>(url, request);
 	}
 

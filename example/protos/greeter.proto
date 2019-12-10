@@ -1,11 +1,11 @@
 
 syntax = "proto3";
 
-package example;
-option php_namespace = "Example";
-option php_metadata_namespace = "Example\\Metadata";
+package greeter;
+option php_namespace = "Greeter";
+option php_metadata_namespace = "Greeter\\Metadata";
 option php_generic_services = true;
-option csharp_namespace = "Example";
+option csharp_namespace = "Greeter";
 
 
 import "ext.proto";
