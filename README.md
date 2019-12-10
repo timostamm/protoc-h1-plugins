@@ -10,6 +10,10 @@ Generates clients for:
 Supports server for:
 - PHP via https://github.com/timostamm/protoc-h1-php-server
 
+Default values in JSON:
+As of now (dec 2019), protobuf PHP does not support an option to 
+include default values in json output. See https://github.com/protocolbuffers/protobuf/issues/6035
+
 
 
 ## Usage
@@ -59,6 +63,10 @@ protoc --proto_path=example/protos \
 
 
 ### TODO
+
+
+* Once PHP supports including default values in JSON: 
+  Update typescript generated code, primitive fields (and repeated fields) no longer optional.
 
 * C# client: Client-wide option to send binary or json.
 
