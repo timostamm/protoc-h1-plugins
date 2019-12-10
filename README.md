@@ -11,9 +11,8 @@ Supports server for:
 - PHP via https://github.com/timostamm/protoc-h1-php-server
 
 Default values in JSON:
-As of now (dec 2019), protobuf PHP does not support an option to 
-include default values in json output. See https://github.com/protocolbuffers/protobuf/issues/6035
-
+The typescript typings assume that default values are *not* included in JSON. 
+As of now (dec 2019), protobuf PHP does not support this feature, see https://github.com/protocolbuffers/protobuf/issues/6035
 
 
 ## Usage
@@ -61,12 +60,21 @@ protoc --proto_path=example/protos \
 ```
 
 
+#### angular client for the PHP server
+
+
 
 ### TODO
 
 
-* Once PHP supports including default values in JSON: 
-  Update typescript generated code, primitive fields (and repeated fields) no longer optional.
+* Support typescript typings for JSON with included default values, once PHP supports outputting them:
+  - int32, uint32, int64, uint64, double, float: always present, default value 0
+  - bytes: always present, default value ""
+  - bool: always present, default value false
+  - map: always present, default value {}
+  - repeated fields: always present, default value []
+  - message fields: always present, default value null
+  - enum fields: always present, default value = name of first enum value (string)
 
 * C# client: Client-wide option to send binary or json.
 
