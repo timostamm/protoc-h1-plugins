@@ -13,7 +13,7 @@ import "google/protobuf/wrappers.proto";
 enum PackageLevelEnum {
     PKG_A = 0;
     PKG_B = 1;
-    PKG_C = 2;
+    PKG_C = 77;
 }
 
 message BuiltInTypesMessage {
@@ -21,7 +21,7 @@ message BuiltInTypesMessage {
     enum MessageLevelEnum {
         MSG_A = 0;
         MSG_B = 1;
-        MSG_C = 2;
+        MSG_C = 77;
     }
 
     bytes bytes_field = 1;

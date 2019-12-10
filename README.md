@@ -60,12 +60,6 @@ protoc --proto_path=example/protos \
 
 ### TODO
 
-
-* Implement angular client.
-    - check match with canonical json rep 
-    - generate service client
-
-
 * C# client: Client-wide option to send binary or json.
 
 * C# client: Client-wide option: factory for accept headers, taking proto and bin/json flag as argument, returning enumerable of acceptable type (and quality), validate response. 

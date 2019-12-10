@@ -37,16 +37,17 @@ module.exports = class TypescriptEnum {
      */
     addValuesFromDescriptorValueList(valueList) {
         for (const v of valueList) {
-            this.addValue(v.getName(), v.getNumber());
+            this.setValueAt(v.getNumber(), v.getName());
         }
     }
 
-    addValue(stringValue, index) {
+    setValueAt(index, stringValue) {
         this.values[index] = stringValue;
     }
 
     getLiteralUnion() {
         return this.values
+            .filter(name => name !== undefined)
             .map(name => `'${name}'`)
             .join(' | ');
     }

@@ -20,9 +20,9 @@ class PackageLevelEnum
      */
     const PKG_B = 1;
     /**
-     * Generated from protobuf enum <code>PKG_C = 2;</code>
+     * Generated from protobuf enum <code>PKG_C = 77;</code>
      */
-    const PKG_C = 2;
+    const PKG_C = 77;
 
     private static $valueToName = [
         self::PKG_A => 'PKG_A',

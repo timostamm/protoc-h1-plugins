@@ -20,9 +20,9 @@ class MessageLevelEnum
      */
     const MSG_B = 1;
     /**
-     * Generated from protobuf enum <code>MSG_C = 2;</code>
+     * Generated from protobuf enum <code>MSG_C = 77;</code>
      */
-    const MSG_C = 2;
+    const MSG_C = 77;
 
     private static $valueToName = [
         self::MSG_A => 'MSG_A',

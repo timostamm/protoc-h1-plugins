@@ -44,7 +44,7 @@ namespace Types {
             "TWFwRmllbGRFbnRyeRILCgNrZXkYASABKAkSDQoFdmFsdWUYAiABKAU6AjgB",
             "GlAKEk90aGVyTWFwRmllbGRFbnRyeRILCgNrZXkYASABKAUSKQoFdmFsdWUY",
             "AiABKAsyGi50eXBlcy5CdWlsdEluVHlwZXNNZXNzYWdlOgI4ASIzChBNZXNz",
-            "YWdlTGV2ZWxFbnVtEgkKBU1TR19BEAASCQoFTVNHX0IQARIJCgVNU0dfQxAC",
+            "YWdlTGV2ZWxFbnVtEgkKBU1TR19BEAASCQoFTVNHX0IQARIJCgVNU0dfQxBN",
             "IswFChVXZWxsS25vd25UeXBlc01lc3NhZ2USJwoJYW55X2ZpZWxkGAEgASgL",
             "MhQuZ29vZ2xlLnByb3RvYnVmLkFueRIxCg5kdXJhdGlvbl9maWVsZBgDIAEo",
             "CzIZLmdvb2dsZS5wcm90b2J1Zi5EdXJhdGlvbhIrCgtlbXB0eV9maWVsZBgE",
@@ -62,7 +62,7 @@ namespace Types {
             "ZWxkGBEgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEjAKC2J5",
             "dGVzX2ZpZWxkGBIgASgLMhsuZ29vZ2xlLnByb3RvYnVmLkJ5dGVzVmFsdWUq",
             "MwoQUGFja2FnZUxldmVsRW51bRIJCgVQS0dfQRAAEgkKBVBLR19CEAESCQoF",
-            "UEtHX0MQAmIGcHJvdG8z"));
+            "UEtHX0MQTWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.AnyReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.DurationReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.StructReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.WrappersReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Types.PackageLevelEnum), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -77,7 +77,7 @@ namespace Types {
   public enum PackageLevelEnum {
     [pbr::OriginalName("PKG_A")] PkgA = 0,
     [pbr::OriginalName("PKG_B")] PkgB = 1,
-    [pbr::OriginalName("PKG_C")] PkgC = 2,
+    [pbr::OriginalName("PKG_C")] PkgC = 77,
   }
 
   #endregion
@@ -599,7 +599,7 @@ namespace Types {
       public enum MessageLevelEnum {
         [pbr::OriginalName("MSG_A")] MsgA = 0,
         [pbr::OriginalName("MSG_B")] MsgB = 1,
-        [pbr::OriginalName("MSG_C")] MsgC = 2,
+        [pbr::OriginalName("MSG_C")] MsgC = 77,
       }
 
     }
