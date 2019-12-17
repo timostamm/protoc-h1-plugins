@@ -8,9 +8,13 @@ import {ZettResponse} from './zett'
 import {google} from './wellknowntypes'
 
 
+/**
+ *  Comment on message HelloRequest
+ */
 export interface HelloRequest {
 
-	name?: string;
+	/** Comment on field HelloRequest.name */
+	name?: string; // Trailing comment on field HelloRequest.name
 	
 }
 

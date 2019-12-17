@@ -4,6 +4,25 @@ const TypescriptMap = require('./TypescriptMap');
 const TypescriptEnum = require('./TypescriptEnum');
 
 
+class TypescriptMessageField {
+
+    /**
+     * @param {string} name
+     * @param {boolean} repeated
+     * @param {*} type
+     * @param {string} [comment]
+     * @param {string|} [trailingComment]
+     */
+    constructor(name, repeated, type, comment, trailingComment) {
+        this.name = name;
+        this.repeated = repeated;
+        this.type = type;
+        this.comment = comment === undefined ? '' : comment;
+        this.trailingComment = trailingComment === undefined ? '' : trailingComment;
+    }
+}
+
+
 module.exports = class TypescriptMessage {
 
 
@@ -36,6 +55,17 @@ module.exports = class TypescriptMessage {
         this.fields.find(f => f.name === name).comment = comment;
     }
 
+    /**
+     * @param {string} name
+     * @param {string} trailingComment
+     */
+    setFieldCommentTrailing(name, trailingComment) {
+        if (!this.hasField(name)) {
+            throw new Error(`${this.getQualifiedName()} does not have field "${name}".`);
+        }
+        this.fields.find(f => f.name === name).trailingComment = trailingComment;
+    }
+
 
     /**
      * @param {string} name
@@ -63,12 +93,7 @@ module.exports = class TypescriptMessage {
      * @param {TypescriptMap} type
      */
     addMapField(name, type) {
-        this.fields.push({
-            name: name,
-            repeated: false,
-            type: type,
-            comment: ''
-        });
+        this.fields.push(new TypescriptMessageField(name, false, type));
     }
 
 
@@ -78,12 +103,7 @@ module.exports = class TypescriptMessage {
      * @param {TypescriptEnum} tsEnum
      */
     addEnumField(name, repeated, tsEnum) {
-        this.fields.push({
-            name: name,
-            repeated: repeated,
-            type: tsEnum,
-            comment: ''
-        });
+        this.fields.push(new TypescriptMessageField(name, repeated, tsEnum));
     }
 
 
@@ -93,12 +113,7 @@ module.exports = class TypescriptMessage {
      * @param {TypescriptMessage|TypescriptMessageReference|TypescriptWellKnownType} tsMessage
      */
     addMessageField(name, repeated, tsMessage) {
-        this.fields.push({
-            name: name,
-            repeated: repeated,
-            type: tsMessage,
-            comment: ''
-        });
+        this.fields.push(new TypescriptMessageField(name, repeated, tsMessage));
     }
 
     /**
@@ -107,12 +122,7 @@ module.exports = class TypescriptMessage {
      * @param {string} type
      */
     addScalarField(name, repeated, type) {
-        this.fields.push({
-            name: name,
-            repeated: repeated,
-            type: type,
-            comment: ''
-        });
+        this.fields.push(new TypescriptMessageField(name, repeated, type));
     }
 
 
@@ -176,27 +186,28 @@ module.exports = class TypescriptMessage {
                 }
             }
 
+            let fieldLine;
             if (field.type instanceof TypescriptMap) {
                 const typing = lookupMapTyping(field.type.entryTypeName);
                 const valueType = resolve(typing[1]);
-                a.push(`${field.name}?: { [index: ${typing[0]}]: ${valueType} };`);
-
+                fieldLine = `${field.name}?: { [index: ${typing[0]}]: ${valueType} };`;
             } else if (field.type instanceof TypescriptEnum) {
-                a.push(`${field.name}?: ${field.type.getLiteralUnion()};`);
-
+                fieldLine = `${field.name}?: ${field.type.getLiteralUnion()};`;
             } else {
-
                 const t = typeof field.type === "string"
                     ? field.type
                     : resolve(field.type.getQualifiedName());
-
                 if (field.repeated) {
-                    a.push(`${field.name}?: Array<${t}>;`);
+                    fieldLine = `${field.name}?: Array<${t}>;`;
                 } else {
-                    a.push(`${field.name}?: ${t};`);
+                    fieldLine = `${field.name}?: ${t};`;
                 }
-
             }
+            if (field.trailingComment.length > 0) {
+                fieldLine += ' // ' + field.trailingComment;
+            }
+
+            a.push(fieldLine);
             a.push(``);
         }
         return a.map(l => "\t".repeat(indent) + l);

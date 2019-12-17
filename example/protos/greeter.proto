@@ -34,8 +34,11 @@ service Greeter {
 // trailing service comment
 
 
+// Comment on message HelloRequest
 message HelloRequest {
-    string name = 1;
+
+    // Comment on field HelloRequest.name
+    string name = 1; // Trailing comment on field HelloRequest.name
 }
 
 message HelloResponse {

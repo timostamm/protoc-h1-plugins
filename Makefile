@@ -1,5 +1,5 @@
 
-version = 1.3.9
+version = 1.3.10
 plugin_path = src
 
 release: git-tag npm-publish
@@ -23,7 +23,7 @@ git-tag:
 	git push origin --all
 
 
-examples: example_php_server example_anguler_client example_dotnet_client
+examples: example_php_server example_angular_client example_dotnet_client
 
 example_php_server:
 	@find example/out-php ! -path example/out-php ! -name '.gitignore' -exec rm -rf {} +
@@ -41,7 +41,7 @@ example_dotnet_client:
 		--csharp_opt=base_namespace= \
 		example/protos/*.proto
 
-example_anguler_client:
+example_angular_client:
 	@find example/out-angular ! -path example/out-angular ! -name '.gitignore' -exec rm -rf {} +
 	protoc --proto_path=example/protos \
 		--plugin=$(plugin_path)/protoc-gen-h1c-angular \

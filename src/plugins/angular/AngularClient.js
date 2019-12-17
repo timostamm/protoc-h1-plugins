@@ -265,6 +265,7 @@ class AngularClient extends Plugin {
             }
 
             tsMessage.setFieldComment(name, comments.messageField(proto, message, fd.getName(), undefined));
+            tsMessage.setFieldCommentTrailing(name, comments.messageFieldTrailing(proto, message, fd.getName()));
 
         }
 

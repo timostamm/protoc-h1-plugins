@@ -38,13 +38,34 @@ function messageField(proto, message, fieldName, prefix) {
                 && p[2] === 2 // field
                 && p[3] === fieldIndex;
         });
-    const c = getFirstLeadingComment(locations);
+    const comment = getFirstLeadingComment(locations);
     if (typeof prefix === "string") {
-        return addPrefix(c, prefix);
+        return addPrefix(comment, prefix);
     }
-    return c;
+    return comment;
 }
 
+
+/**
+ * @param {proto.google.protobuf.FileDescriptorProto} proto
+ * @param {proto.google.protobuf.DescriptorProto} message
+ * @param {string} fieldName
+ * @return {string}
+ */
+function messageFieldTrailing(proto, message, fieldName) {
+    const messageIndex = proto.getMessageTypeList().indexOf(message);
+    const fieldIndex = message.getFieldList().findIndex(f => f.getName() === fieldName);
+    const locations = proto.getSourceCodeInfo().getLocationList()
+        .filter(l => {
+            const p = l.getPathList();
+            return p.length === 4
+                && p[0] === 4 // type message
+                && p[1] === messageIndex
+                && p[2] === 2 // field
+                && p[3] === fieldIndex;
+        });
+    return getFirstTrailingComment(locations);
+}
 
 
 /**
@@ -108,11 +129,23 @@ function getFirstLeadingComment(locations) {
 }
 
 
+function getFirstTrailingComment(locations) {
+    if (locations.length === 0) {
+        return '';
+    }
+    const c = locations[0].getTrailingComments();
+    if (c.trim().length === 0) {
+        return '';
+    }
+    return c.trim();
+}
+
+
 function addPrefix(comment, prefix) {
     return comment.split("\n")
         .map(l => l.trim())
         .filter((l, i, a) => {
-            if (i === 0 || i === a.length-1) {
+            if (i === 0 || i === a.length - 1) {
                 return l.length > 0;
             }
             return true;
@@ -125,5 +158,6 @@ function addPrefix(comment, prefix) {
 module.exports = {};
 module.exports.message = message;
 module.exports.messageField = messageField;
+module.exports.messageFieldTrailing = messageFieldTrailing;
 module.exports.service = service;
 module.exports.serviceMethod = serviceMethod;
