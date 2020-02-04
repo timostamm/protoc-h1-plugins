@@ -1,6 +1,6 @@
 {
   "name": "protoc-h1-plugins",
-  "version": "1.3.11",
+  "version": "1.3.12",
   "description": "Protobuf RPC over HTTP 1",
   "main": "src/index.js",
   "scripts": {
@@ -8,6 +8,7 @@
   },
   "bin": {
     "protoc-gen-h1c-dotnetcore": "src/protoc-gen-h1c-dotnetcore",
+    "protoc-gen-h1c-dotnetinterface": "src/protoc-gen-h1c-dotnetinterface",
     "protoc-gen-h1c-angular": "src/protoc-gen-h1c-angular",
     "protoc-gen-json-typescript": "src/protoc-gen-json-typescript"
   },

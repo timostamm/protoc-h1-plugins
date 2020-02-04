@@ -1,5 +1,5 @@
 
-version = 1.3.11
+version = 1.3.12
 plugin_path = src
 
 release: git-tag npm-publish
