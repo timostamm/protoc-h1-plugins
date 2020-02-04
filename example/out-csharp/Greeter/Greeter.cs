@@ -45,6 +45,9 @@ namespace Greeter {
 
   }
   #region Messages
+  /// <summary>
+  /// Comment on message HelloRequest
+  /// </summary>
   public sealed partial class HelloRequest : pb::IMessage<HelloRequest> {
     private static readonly pb::MessageParser<HelloRequest> _parser = new pb::MessageParser<HelloRequest>(() => new HelloRequest());
     private pb::UnknownFieldSet _unknownFields;
@@ -82,6 +85,9 @@ namespace Greeter {
     /// <summary>Field number for the "name" field.</summary>
     public const int NameFieldNumber = 1;
     private string name_ = "";
+    /// <summary>
+    /// Comment on field HelloRequest.name
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string Name {
       get { return name_; }

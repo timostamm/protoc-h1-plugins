@@ -1,5 +1,5 @@
 
-version = 1.3.10
+version = 1.3.11
 plugin_path = src
 
 release: git-tag npm-publish
@@ -36,6 +36,16 @@ example_dotnet_client:
 	protoc --proto_path=example/protos \
 		--plugin=$(plugin_path)/protoc-gen-h1c-dotnetcore \
 		--h1c-dotnetcore_out=example/out-csharp \
+		--csharp_opt=base_namespace= \
+		--csharp_out=example/out-csharp \
+		--csharp_opt=base_namespace= \
+		example/protos/*.proto
+
+example_dotnet_interface:
+	@find example/out-csharp ! -path example/out-csharp ! -name '.gitignore' -exec rm -rf {} +
+	protoc --proto_path=example/protos \
+		--plugin=$(plugin_path)/protoc-gen-h1c-dotnetinterface \
+		--h1c-dotnetinterface_out=example/out-csharp \
 		--csharp_opt=base_namespace= \
 		--csharp_out=example/out-csharp \
 		--csharp_opt=base_namespace= \

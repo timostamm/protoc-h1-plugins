@@ -1,0 +1,6 @@
+#! /usr/bin/env node
+
+const DotnetCoreClient = require('./plugins/dotnet-interface/dotnet-client-interface');
+
+new DotnetCoreClient().run(process);
+
