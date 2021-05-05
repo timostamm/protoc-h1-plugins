@@ -15,8 +15,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "rxjs": "~6.2.0",
-    "@angular/common": ">=6.0.0 <=10.0.6",
+    "rxjs": ">=6.2.0",
+    "@angular/common": ">=6.0.0 <=11",
     "buffer-to-uint8array": "^1.1.0",
     "google-protobuf": "^3.10.0",
     "stream-to-promise": "^2.2.0"
